@@ -1,4 +1,4 @@
-package com.example.p6_kotlininteraction
+package com.example.p6
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
