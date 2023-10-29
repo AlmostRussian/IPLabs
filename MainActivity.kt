@@ -3,7 +3,7 @@ package com.example.p6
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,11 +14,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val count = remember{mutableStateOf(0)}
-
-            Text("Clicks: ${count.value}",
-                fontSize = 28.sp,
-                modifier = Modifier.clickable( onClick = { count.value += 1 })
+            var checked = remember { mutableStateOf(false) }
+            Text(
+                modifier = Modifier.toggleable(value = checked.value, onValueChange = { checked.value = it }),
+                text = checked.value.toString(),
+                fontSize = 30.sp
             )
         }
     }
