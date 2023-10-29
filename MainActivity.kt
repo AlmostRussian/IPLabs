@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.BorderStroke
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,13 @@ class MainActivity : ComponentActivity() {
             )
             {
                 Text("Click", fontSize = 25.sp)
+            }
+            Button(onClick = {},
+                colors = ButtonDefaults.buttonColors( contentColor = Color.Black),
+                border = BorderStroke(3.dp, Color.DarkGray)
+            )
+            {
+                Text("Click", fontSize = 30.sp)
             }
         }
     }
