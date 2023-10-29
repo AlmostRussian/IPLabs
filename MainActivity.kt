@@ -3,23 +3,34 @@ package com.example.p6
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
-import androidx.compose.material3.Text
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            val count = remember{mutableStateOf(0)}
+        setContent {Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.fillMaxHeight()){
+            BottomAppBar {
+                IconButton(onClick = {  }) {
+                    Icon(Icons.Filled.Menu, contentDescription = "Меню")
+                }
+                Spacer(Modifier.weight(1f, true))
 
-            Text("Clicks: ${count.value}",
-                fontSize = 28.sp,
-                modifier = Modifier.clickable( onClick = { count.value += 1 })
-            )
-        }
+                IconButton(onClick = { }) {
+                    Icon(Icons.Filled.Info, contentDescription = "Информация о приложении")
+                }
+                IconButton(onClick = { }) {
+                    Icon(Icons.Filled.Search, contentDescription = "Избранное")
+                }
+            }
+        }}
     }
 }
