@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
             ModalNavigationDrawer(
                 drawerState = drawerState,
                 drawerContent = {
-                    Column {
+                    ModalDrawerSheet {
                         for (item in items) {
                             Text(
                                 item,
