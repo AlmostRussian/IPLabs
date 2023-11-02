@@ -44,15 +44,17 @@ class MainActivity : ComponentActivity() {
             ModalNavigationDrawer(
                 drawerState = drawerState,
                 drawerContent = {
-                    for (item in items) {
-                        Text(
-                            item,
-                            fontSize = 28.sp,
-                            modifier = Modifier.clickable {
-                                selectedItem.value = item
-                                scope.launch{ drawerState.close() }
-                            }
-                        )
+                    Column {
+                        for (item in items) {
+                            Text(
+                                item,
+                                fontSize = 28.sp,
+                                modifier = Modifier.clickable {
+                                    selectedItem.value = item
+                                    scope.launch { drawerState.close() }
+                                }
+                            )
+                        }
                     }
                 },
             ) {
