@@ -9,17 +9,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import com.example.p6.ui.theme.CheckboxinDaRow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val count = remember{mutableStateOf(0)}
-
-            Text("Clicks: ${count.value}",
-                fontSize = 28.sp,
-                modifier = Modifier.clickable( onClick = { count.value += 1 })
-            )
+            CheckboxinDaRow()
         }
     }
 }
