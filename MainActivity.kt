@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
                     IconButton(onClick = {  }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Меню")
                     }
-
                     Row {
                         Spacer(Modifier.weight(1f, true))
                         Text("METANIT.COM", fontSize = 22.sp)
