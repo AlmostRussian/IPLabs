@@ -3,23 +3,38 @@ package com.example.p6
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
-import androidx.compose.material3.Text
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val count = remember{mutableStateOf(0)}
+            TopAppBar(title = {
+            },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(Icons.Filled.Menu, contentDescription = "Меню")
+                    }
 
-            Text("Clicks: ${count.value}",
-                fontSize = 28.sp,
-                modifier = Modifier.clickable( onClick = { count.value += 1 })
-            )
+                    Row {
+                        Spacer(Modifier.weight(1f, true))
+                        Text("METANIT.COM", fontSize = 22.sp)
+                        IconButton(onClick = { }) {
+                            Icon(Icons.Filled.Info, contentDescription = "Информация о приложении")
+                        }
+                        IconButton(onClick = { }) {
+                            Icon(Icons.Filled.Search, contentDescription = "Поиск")
+                        }
+                    }
+            })
         }
     }
 }
