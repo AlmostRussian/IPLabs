@@ -1,42 +1,78 @@
 package com.example.p6.bottom_navigation
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-
 @Composable
-fun Screen1() {
-    Text(
-        modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        text = "Screen 1",
-        textAlign = TextAlign.Center
-    )
+fun Screen1(onClick: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Screen 1",
+            fontSize = 30.sp
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(
+            onClick = {
+                onClick()
+            }
+        ) {
+            Text(text = "Screen 2")
+        }
+    }
 }
 @Composable
-fun Screen2() {
-    Text(
-        modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        text = "Screen 2",
-        textAlign = TextAlign.Center
-    )
+fun Screen2(onClick: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Screen 2",
+            fontSize = 30.sp
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(
+            onClick = {
+                onClick()
+            }
+        ) {
+            Text(text = "Screen 3")
+        }
+    }
 }
 @Composable
-fun Screen3() {
-    Text(
-        modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        text = "Screen 3",
-        textAlign = TextAlign.Center
-    )
-}
-@Composable
-fun Screen4() {
-    Text(
-        modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        text = "Screen 4",
-        textAlign = TextAlign.Center
-    )
+fun Screen3(onClick: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Screen 3",
+            fontSize = 30.sp
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(
+            onClick = {
+                onClick()
+            }
+        ) {
+            Text(text = "Screen 1")
+        }
+    }
 }
