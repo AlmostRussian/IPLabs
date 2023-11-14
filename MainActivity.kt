@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun Screen2(myViewModel: MyViewModel3 = viewModel()) {
     val i by myViewModel.i
