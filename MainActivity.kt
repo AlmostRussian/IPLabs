@@ -55,15 +55,15 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnrememberedMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         db = openOrCreateDatabase("P11.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS CITILAR (id INTEGER PRIMARY KEY, name TEXT, tempc REAL)")
-        db.execSQL("INSERT OR IGNORE INTO CITILAR(name, tempc) VALUES ('Kazan', 0.3), ('Chelny', 1.0)")
+        db.execSQL("CREATE TABLE IF NOT EXISTS COMPANIES (id INTEGER PRIMARY KEY, name TEXT, annual_turnover REAL)")
+        db.execSQL("INSERT OR IGNORE INTO COMPANIES(name, annual_turnover) VALUES ('Sberbank', 5), ('AkBars', 10), ('Valve', 100), ('X5 Company', 15), ('Tinkoff', 30)" )
         super.onCreate(savedInstanceState)
         setContent {
-            var citiesCursor: Cursor = db.rawQuery("SELECT * FROM CITILAR;", null)
-            var citiz =
+            var companiesCursor: Cursor = db.rawQuery("SELECT * FROM COMPANIES;", null)
+            var companies =
                 mutableStateOf(
                     sRebuild(
-                        citiesCursor
+                        companiesCursor
                     )
                 )
             val paddingModifier = Modifier.padding(10.dp)
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
                             defaultElevation = 8.dp
                         )
                     ) {
-                        Text(citiz.value, modifier = Modifier.verticalScroll(ScrollState(0)))
+                        Text(companies.value, modifier = Modifier.verticalScroll(ScrollState(0)))
                     }
                     Card(
                         modifier = Modifier
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Column {
                             var name by remember { mutableStateOf("") }
-                            var tempc by remember { mutableStateOf<Double>(0.0) }
+                            var annual_turnover by remember { mutableStateOf<Double>(0.0) }
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -108,29 +108,29 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxWidth(0.9f)
                                         .background(Color.Transparent),
-                                    label = { Text(text = "City") },
-                                    placeholder = { Text(text = "градусов ...") }
+                                    label = { Text(text = "Компания") },
+                                    placeholder = { Text(text = "Введите название компании") }
                                 )
 
                                 Spacer(modifier = Modifier.height(20.dp))
 
                                 OutlinedTextField(
-                                    value = tempc.toString(),
+                                    value = annual_turnover.toString(),
 
-                                    onValueChange = { tempc = it.toDouble() },
+                                    onValueChange = { annual_turnover = it.toDouble() },
 
                                     modifier = Modifier
                                         .fillMaxWidth(0.9f)
                                         .background(Color.Transparent),
-                                    label = { Text(text = "Температура") },
-                                    placeholder = { Text(text = "градусов ...") }
+                                    label = { Text(text = "Оборот в год") },
+                                    placeholder = { Text(text = "долларов ...") }
                                 )
 
                                 Spacer(modifier = Modifier.height(20.dp))
 
                                 OutlinedButton(
                                     onClick = {
-                                        db.execSQL("INSERT OR IGNORE INTO CITILAR(name, tempc) VALUES ('$name', '$tempc')")
+                                        db.execSQL("INSERT OR IGNORE INTO COMPANIES(name, annual_turnover) VALUES ('$name', '$annual_turnover')")
                                     },
 
                                     modifier = Modifier.align(alignment = CenterHorizontally),
@@ -144,14 +144,14 @@ class MainActivity : ComponentActivity() {
                                     )
                                 ) {
 
-                                    Text("Добавить город")
+                                    Text("Добавить компанию")
 
                                 }
 
                                 OutlinedButton(
                                     onClick = {
-                                        citiz.value =
-                                            sRebuild(db.rawQuery("SELECT * FROM CITILAR;", null))
+                                        companies.value =
+                                            sRebuild(db.rawQuery("SELECT * FROM COMPANIES;", null))
                                     },
 
                                     modifier = Modifier.align(alignment = CenterHorizontally),
