@@ -23,18 +23,18 @@ class MainActivity : ComponentActivity() {
     lateinit var db: SQLiteDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         db = openOrCreateDatabase("P11.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS CITILAR (id INTEGER PRIMARY KEY, name TEXT, tempc REAL)")
-        db.execSQL("INSERT OR IGNORE INTO CITILAR(name, tempc) VALUES ('KAZAN', 0.3), ('CHELNY', 1.0), ('AGRYZ', -0.1)")
-        val query: String = "SELECT * FROM CITILAR;"
+        db.execSQL("CREATE TABLE IF NOT EXISTS COMPANIES (id INTEGER PRIMARY KEY, name TEXT, annual_turnover REAL)")
+        db.execSQL("INSERT OR IGNORE INTO COMPANIES(name, annual_turnover) VALUES ('Sberbank', 5), ('AkBars', 10), ('Valve', 100), ('X5 Company', 15), ('Tinkoff', 30)" )
+        val query: String = "SELECT * FROM COMPANIES;"
         val cursor: Cursor = db.rawQuery(query, null)
-        var citiz = buildString {
+        var annual_turnover = buildString {
             while (cursor.moveToNext()) {
                 var id = cursor.getInt(0)
                 var name = cursor.getString(1)
-                var tempc: Double = cursor.getDouble(2)
-                append("$id $name $tempc \n")
+                var annual_turnover: Double = cursor.getDouble(2)
+                append("$id $name $annual_turnover \n")
                 Log.d(
-                    "P11", "NAME: $name TEMP: $tempc\n!"
+                    "P11", "NAME: $name TEMP: $annual_turnover\n!"
                 )
             }
         }
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     defaultElevation = 8.dp
                 )
             ) {
-                Text(citiz, modifier = Modifier.verticalScroll(ScrollState(1)))
+                Text(annual_turnover, modifier = Modifier.verticalScroll(ScrollState(1)))
             }
         }
     }
