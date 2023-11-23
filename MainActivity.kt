@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(2),
+                columns = StaggeredGridCells.Adaptive(minSize = 200.dp),
                 verticalItemSpacing = 4.dp,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
