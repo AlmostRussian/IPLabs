@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.p6.ui.theme.City
+import com.example.p6.ui.theme.Student
 import com.example.p6.ui.theme.MyViewModel
 
 class MainActivity : ComponentActivity() {
@@ -29,13 +29,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyScreen(vm.citiz)
+            MyScreen(vm.students)
         }
     }
 }
 
 @Composable
-fun MyScreen(citiz: List<City>) {
+fun MyScreen(citiz: List<Student>) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(3.dp),
         contentPadding = PaddingValues(16.dp),
@@ -46,8 +46,8 @@ fun MyScreen(citiz: List<City>) {
     ) {
         item {
             Row {
-                Text(text = "City", Modifier.fillMaxWidth(0.7f), textAlign = TextAlign.Center)
-                Text(text = "Temp", textAlign = TextAlign.Center)
+                Text(text = "Name", Modifier.fillMaxWidth(0.7f), textAlign = TextAlign.Center)
+                Text(text = "Grade", textAlign = TextAlign.Center)
             }
         }
         items(citiz) {
@@ -57,19 +57,19 @@ fun MyScreen(citiz: List<City>) {
 }
 
 @Composable
-fun CityItem(cityModel: City) {
+fun CityItem(Name: Student) {
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(), elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceAround) {
             Text(
-                text = cityModel.name,
+                text = Name.name,
                 modifier = Modifier.fillMaxWidth(0.7f),
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
-            Text(text = cityModel.temp.toString(), fontSize = 20.sp, textAlign = TextAlign.Right)
+            Text(text = Name.grade.toString(), fontSize = 20.sp, textAlign = TextAlign.Right)
         }
     }
 }

@@ -3,20 +3,19 @@ package com.example.p6.ui.theme
 import androidx.compose.runtime.toMutableStateList
 import com.github.javafaker.Faker
 import androidx.lifecycle.ViewModel
-import java.math.BigDecimal
-import java.math.RoundingMode
+import kotlin.random.Random
 
-data class City(
+data class Student(
     val name: String,
-    val temp: Double
+    val grade: Int
 )
 
 class MyViewModel : ViewModel() {
-    val citiz: MutableList<City> = (1..100).map {
-        City(
-            Faker().address().city(),
+    val students: MutableList<Student> = (1..10).map {
+        Student(
+            Faker().name().name(),
             Faker().random().nextDouble().let {
-                BigDecimal(it).setScale(1, RoundingMode.HALF_EVEN).toDouble()
+                Random.nextInt(0, 10)
             }
         )
     }.toMutableStateList()
