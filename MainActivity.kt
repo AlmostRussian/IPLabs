@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+
 class MainActivity : ComponentActivity() {
     val randomSizedPhotos = listOf(
         randomSampleImageUrl(width = 1600, height = 900),
@@ -58,25 +59,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(2),
+                columns = StaggeredGridCells.Fixed(3),
                 verticalItemSpacing = 4.dp,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                itemsIndexed(randomSizedPhotos) { i, it ->
-                    Box(
-                        //пока что Box вместо AsyncImage
-                        Modifier
-                            .padding(3.dp)
-                            .fillMaxWidth()
-                            .height(20.dp * i)
-                            .background(Color.Cyan),
-                    ) {
-                        Column {
-                            Text(text = "$i + ${it.toString()}")
-                        }
+                content = {
+                    items(randomSizedPhotos) { photo ->
+                        AsyncImage(
+                            model = photo,
+                            contentScale = ContentScale.Crop,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                        )
                     }
-                }
-            }
+                },
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
@@ -86,7 +85,7 @@ fun randomSampleImageUrl(
     width: Int = 300,
     height: Int = width,
 ): String {
-    return "https://picsum.photos/seed/$seed/$width/$height"
+    return "https://loremflickr.com/$width/$height?random=$seed"
 }
 
 @Composable
