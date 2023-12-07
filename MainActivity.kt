@@ -56,7 +56,7 @@ fun MyApp() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Faker + SQLite Example") }
+                title = { Text("Faker + SQLite") }
             )
         },
         content = {
