@@ -51,13 +51,13 @@ fun MyScreen(citiz: List<Student>) {
             }
         }
         items(citiz) {
-            CityItem(it)
+            StudentItem(it)
         }
     }
 }
 
 @Composable
-fun CityItem(Name: Student) {
+fun StudentItem(Name: Student) {
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(), elevation = CardDefaults.cardElevation(10.dp)
