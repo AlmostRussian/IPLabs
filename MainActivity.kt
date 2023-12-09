@@ -1,7 +1,9 @@
 package com.example.p6
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.TimingLogger
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -9,11 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.javafaker.Faker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,52 +35,48 @@ fun MyApp() {
     val coroutineScope = rememberCoroutineScope()
 
     val database = AppDatabase(context = LocalContext.current)
+    val elapsedTime = measureTimeMillis {
+        DisposableEffect(Unit) {
+            val coroutineJob = coroutineScope.launch {
+                while (true) {
+                    val faker = Faker()
+                    val name = faker.name().fullName()
+                    val email = faker.internet().emailAddress()
 
-    SideEffect {
-        database.insertData("Admin", "admin@mail.ru")
-    }
+                    database.insertData(name, email)
 
-    LaunchedEffect(true) {
-        coroutineScope.launch {
-            while (true) {
-                val faker = Faker()
-                val name = faker.name().fullName()
-                val email = faker.internet().emailAddress()
+                    data = database.getAllData()
 
-                database.insertData(name, email)
-
-                data = database.getAllData()
-
-                delay(1500)
-            }
-        }
-    }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Faker + SQLite") }
-            )
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Text("Generated Data:")
-                Spacer(modifier = Modifier.height(8.dp))
-
-                data.forEach { entry ->
-                    Text("Name: ${entry.name}, Email: ${entry.email}")
+                    delay(1500)
                 }
             }
-        }
-    )
-}
 
-@Composable
-@Preview(showBackground = true)
-fun DefaultPreview() {
-    MyApp()
+            onDispose {
+                coroutineJob.cancel()
+            }
+        }
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Faker + SQLite Example") }
+                )
+            },
+            content = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    Text("Generated Data:")
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    data.forEach { entry ->
+                        Text("Name: ${entry.name}, Email: ${entry.email}")
+                    }
+                }
+            }
+        )
+    }
+    println("Код исполнялся $elapsedTime мс")
 }
