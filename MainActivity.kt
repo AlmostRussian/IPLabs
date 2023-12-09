@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.github.javafaker.Faker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,48 +33,50 @@ fun MyApp() {
     val coroutineScope = rememberCoroutineScope()
 
     val database = AppDatabase(context = LocalContext.current)
-
-    SideEffect {
-        database.insertData("Admin", "admin@mail.ru")
-    }
-
-    LaunchedEffect(true) {
-        coroutineScope.launch {
-            while (true) {
-                val faker = Faker()
-                val name = faker.name().fullName()
-                val email = faker.internet().emailAddress()
-
-                database.insertData(name, email)
-
-                data = database.getAllData()
-
-                delay(1500)
-            }
+    val elapsedTime = measureTimeMillis {
+        SideEffect {
+            database.insertData("Admin", "admin@mail.ru")
         }
-    }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Faker + SQLite") }
-            )
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Text("Generated Data:")
-                Spacer(modifier = Modifier.height(8.dp))
+        LaunchedEffect(true) {
+            coroutineScope.launch {
+                while (true) {
+                    val faker = Faker()
+                    val name = faker.name().fullName()
+                    val email = faker.internet().emailAddress()
 
-                data.forEach { entry ->
-                    Text("Name: ${entry.name}, Email: ${entry.email}")
+                    database.insertData(name, email)
+
+                    data = database.getAllData()
+
+                    delay(1500)
                 }
             }
         }
-    )
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Faker + SQLite") }
+                )
+            },
+            content = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    Text("Generated Data:")
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    data.forEach { entry ->
+                        Text("Name: ${entry.name}, Email: ${entry.email}")
+                    }
+                }
+            }
+        )
+    }
+    println("Код исполнялся $elapsedTime мс")
 }
 
 @Composable
