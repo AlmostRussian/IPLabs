@@ -48,7 +48,7 @@ fun MyApp() {
 
                 data = database.getAllData()
 
-                delay(1500) // Wait for 5 seconds before generating the next set of data
+                delay(1500)
             }
         }
     }
